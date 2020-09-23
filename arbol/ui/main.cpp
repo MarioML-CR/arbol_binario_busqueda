@@ -13,7 +13,7 @@
  *      Francisco Sandoval Cordero
  *      Juan Hidalgo González
  *      Mario Martínez Lanuza
- * Modificación: 2020-09-
+ * Modificación: 2020-09-23
  */
 
 using namespace std;
