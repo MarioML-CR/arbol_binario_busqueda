@@ -75,7 +75,13 @@ void agregarAArbin() {
     int ciclos = ingresarNum(msg);
     for (int i = 0; i < ciclos; ++i) {
         msg = "ingrese el valor " + to_string(i + 1);
-        gestor.insertarElem(ingresarNum(msg));
+        bool carga = gestor.insertarElem(ingresarNum(msg));
+        if (carga) {
+            cout << "El valor ingresado se cargó correctamente\n";
+        } else {
+            cout << "Se produjo un error en la carga...\n";
+        }
+
     }
-    cout << "Los valores ingresados a la COLA se cargaron satisfactoriamente\n";
+    cout << "Los valores ingresados en el arbol binario se cargaron satisfactoriamente\n";
 }

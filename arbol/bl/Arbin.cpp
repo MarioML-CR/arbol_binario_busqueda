@@ -53,23 +53,26 @@ bool Arbin::esVacioArbin() {
     }
 }
 
-bool Arbin::insertarElemRecursivo(Nodo *nodo, int pValor) {
+void Arbin::insertarElemRecursivo(Nodo *nodo, Nodo *nodoPrevio, int pValor, int tipo) {
     if (nodo == nullptr){
         nodo = new Nodo(pValor);
         if(getPeso()== 0){
             setRaiz(nodo);
+        } else if (tipo == 1){
+            nodoPrevio->setIzq(nodo);
+        } else if (tipo == 2) {
+            nodoPrevio->setDer(nodo);
         }
         setPeso(getPeso() + 1);
-        return true;
-    } else if (pValor > nodo->getNum()){
-        insertarElemRecursivo(nodo->getIzq(), pValor);
-    } else if (pValor < nodo->getNum()) {
-        insertarElemRecursivo(nodo->getDer(), pValor);
-    } else {
-        return false;
+//        return true;
+    } else if (pValor < nodo->getNum()){
+        insertarElemRecursivo(nodo->getIzq(), nodo, pValor, 1);
+    } else if (pValor > nodo->getNum()) {
+        insertarElemRecursivo(nodo->getDer(), nodo, pValor, 2);
     }
 }
 
 bool Arbin::insertarElem(int pValor) {
-    return insertarElemRecursivo(getRaiz(), pValor);
+    insertarElemRecursivo(getRaiz(), new Nodo(), pValor ,0);
+    return true;
 }

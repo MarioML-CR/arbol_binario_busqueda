@@ -53,7 +53,7 @@ private:
     Nodo *raiz;
     int peso;
 
-    bool insertarElemRecursivo(Nodo* , int); //Inserta un entero en el árbol ordenado.
+    void insertarElemRecursivo(Nodo* , Nodo*, int, int); //Inserta un entero en el árbol ordenado.
 
     string imprimirArbinRecursivo(); //Imprime el arbol binario
 };
