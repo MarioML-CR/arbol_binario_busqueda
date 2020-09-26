@@ -28,6 +28,12 @@ public:
 
     string esHoja(int); //Dice si un Arbin es hoja o no
 
+    int nivel(); //Calcula del nivel de un Arbin
+
+    int altura(); // calcula la altura del árbol.
+
+    int numHojas(); //Calcula el número de hojas de un Arbin
+
 private:
     Arbin *arbol;
 };

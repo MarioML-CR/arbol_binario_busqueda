@@ -40,6 +40,18 @@ string Gestor::esHoja(int pValor) {
     return arbol->esHoja(pValor);
 }
 
+int Gestor::nivel() {
+    return arbol->nivel();
+}
+
+int Gestor::altura() {
+    return arbol->altura();
+}
+
+int Gestor::numHojas() {
+    return arbol->numHojas();
+}
+
 
 
 

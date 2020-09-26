@@ -35,15 +35,17 @@ public:
 
     string esHoja(int); //Dice si un Arbin es hoja o no
 
+    int nivel(); //Calcula del nivel de un Arbin
+
+    int altura(); // calcula la altura del árbol.
+
+    int numHojas(); //Calcula el número de hojas de un Arbin
+
     // TODO: pendiente de acá en adelante.
 
     bool eliminarElem(int); //Elimina un elemento del Arbin.
 
-    int numHojas(); //Calcula el número de hojas de un Arbin
-
     bool hayCamino(int, int); //Dice si hay camino entre dos elementos del Arbin
-
-    int altura(); //Calcula la altura de un Arbin
 
     bool esCompleto(); //Retorna si un Arbin es completo o no
 
@@ -60,6 +62,10 @@ private:
     string imprimirArbinRecursivo(); //Imprime el arbol binario
 
     Nodo *buscarNodo(int); // retorna el nodo del valor pasado por parámetro
+
+    int nivelRecursivo(Nodo*); //Calcula la nivel de un Arbin
+
+    int numHojasRecursivo(Nodo*); //Calcula el número de hojas de un Arbin
 };
 
 

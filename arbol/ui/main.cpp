@@ -26,6 +26,9 @@ void agregarAArbin();
 void buscarMaximo();
 void buscarMinimo();
 void esHoja();
+void nivel();
+void altura();
+void numHojas();
 Gestor gestor;
 Validar validar;
 
@@ -42,10 +45,13 @@ void menu() {
              "01 Agregar datos al árbol\n" <<
              "02 Verificar si el árbol tiene elementos\n" <<
              "03 Peso del árbol\n" <<
-             "04 Número mayor del árbol\n" <<
-             "05 Número menor del árbol\n" <<
-             "06 Verificar si valor es hoja\n"
-             "08 Salir\n";
+             "04 Número menor del árbol\n" <<
+             "05 Número mayor del árbol\n" <<
+             "06 Verificar si valor es hoja\n" <<
+             "07 Nivel del arbol\n" <<
+             "08 Altura del árbol\n" <<
+             "09 Número de hojas del árbol\n" <<
+             "12 Salir\n";
         cin >> valor;
         opcion = validar.ingresarInt(valor);
         procesarMenu(opcion, salir);
@@ -63,15 +69,24 @@ void procesarMenu(int & pOpcion, bool & salir) {
             pesoArbin();
             break;
         case 4:
-            buscarMaximo();
+            buscarMinimo();
             break;
         case 5:
-            buscarMinimo();
+            buscarMaximo();
             break;
         case 6:
             esHoja();
             break;
+        case 7:
+            nivel();
+            break;
         case 8:
+            altura();
+            break;
+        case 9:
+            numHojas();
+            break;
+        case 12:
             salir = true;
             break;
         default:
@@ -134,6 +149,27 @@ void esHoja(){
     string esHoja = gestor.esHoja(ingresarNum(msg));
     if (!gestor.esVacioArbin()) {
         cout << esHoja;
+    } else {
+        cout << "Aún no se ha ingresado datos al árbol\n";
+    }
+}
+void nivel(){
+    if (!gestor.esVacioArbin()) {
+        cout << "El nivel del árboles es " << gestor.nivel() << endl;
+    } else {
+        cout << "Aún no se ha ingresado datos al árbol\n";
+    }
+}
+void altura(){
+    if (!gestor.esVacioArbin()) {
+        cout << "La altura del árboles es " << gestor.altura() << endl;
+    } else {
+        cout << "Aún no se ha ingresado datos al árbol\n";
+    }
+}
+void numHojas(){
+    if (!gestor.esVacioArbin()) {
+        cout << "El número de hojas del árbol es " << gestor.numHojas() << endl;
     } else {
         cout << "Aún no se ha ingresado datos al árbol\n";
     }

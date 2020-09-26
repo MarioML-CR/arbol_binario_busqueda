@@ -164,3 +164,59 @@ Nodo *Arbin::buscarNodo(int pValor) {
     } while (aux != nullptr);
     return aux;
 }
+/**
+ * Método:              nivel
+ * Descripción:         Método que permite obtener el nivel del árbol a travéz
+ * del método privado recursivo.
+ * @return              variable de tipo int que representa el nivel del árbol.
+ */
+int Arbin::nivel() {
+    return nivelRecursivo(getRaiz());
+}
+/**
+ * Método:              nivelRecursivo
+ * Descripción:         Método que permite recorrer el árbol de forma recursiva
+ * para obtener el nivel del árbol.
+ * @param nodo          varible de tipo Nodo que respresenta cada nivel.
+ * @return              variable de tipo int que representa el nivel del árbol.
+ */
+int Arbin::nivelRecursivo(Nodo * nodo) {
+    int a, b;
+    if (nodo == nullptr){
+        return -1;
+    } else {
+        a = nivelRecursivo(nodo->getIzq());
+        b = nivelRecursivo(nodo->getDer());
+        if (a > b){
+            return a + 1;
+        } else {
+            return b + 1;
+        }
+    }
+}
+
+int Arbin::altura() {
+    return nivel() + 1;
+}
+
+int Arbin::numHojas() {
+    return numHojasRecursivo(getRaiz());
+}
+
+int Arbin::numHojasRecursivo(Nodo * nodo) {
+    if (nodo == nullptr){
+        return 0;
+    } else {
+        if (nodo->getDer() == nullptr && nodo->getIzq() == nullptr){
+            return 1;
+        } else {
+            return numHojasRecursivo(nodo->getIzq()) + numHojasRecursivo(nodo->getDer());
+        }
+    }
+}
+
+
+
+
+
+
