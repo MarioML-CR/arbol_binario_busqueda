@@ -29,9 +29,15 @@ public:
 
     bool insertarElem(int); //Inserta un entero en el árbol ordenado.
 
-    bool eliminarElem(int); //Elimina un elemento del Arbin.
+    int buscarMaximo(); //Busca el elemento de mayor valor
 
-    bool esHoja(int); //Dice si un Arbin es hoja o no
+    int buscarMinimo(); //Busca el elemento de menor valor
+
+    string esHoja(int); //Dice si un Arbin es hoja o no
+
+    // TODO: pendiente de acá en adelante.
+
+    bool eliminarElem(int); //Elimina un elemento del Arbin.
 
     int numHojas(); //Calcula el número de hojas de un Arbin
 
@@ -45,10 +51,6 @@ public:
 
     string imprimirArbin(); //Imprime el arbol binario
 
-    int buscarMaximo(); //Busca el elemento de mayor valor
-
-    int buscarMinimo(); //Busca el elemento de menor valor
-
 private:
     Nodo *raiz;
     int peso;
@@ -56,6 +58,8 @@ private:
     void insertarElemRecursivo(Nodo* , Nodo*, int, int); //Inserta un entero en el árbol ordenado.
 
     string imprimirArbinRecursivo(); //Imprime el arbol binario
+
+    Nodo *buscarNodo(int); // retorna el nodo del valor pasado por parámetro
 };
 
 

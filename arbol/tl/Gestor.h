@@ -18,6 +18,16 @@ public:
 
     bool insertarElem(int); //Inserta un entero en el árbol ordenado.
 
+    int pesoArbin(); //Calcula el número de elementos del Arbin
+
+    bool esVacioArbin(); //Retorna si un Arbin es vacío o no
+
+    int buscarMaximo(); //Busca el elemento de mayor valor
+
+    int buscarMinimo(); //Busca el elemento de menor valor
+
+    string esHoja(int); //Dice si un Arbin es hoja o no
+
 private:
     Arbin *arbol;
 };

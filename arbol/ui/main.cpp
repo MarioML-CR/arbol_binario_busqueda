@@ -20,7 +20,12 @@ using namespace std;
 void menu();
 void procesarMenu(int &, bool &);
 int ingresarNum(string);
+void esVacioArbin();
+void pesoArbin();
 void agregarAArbin();
+void buscarMaximo();
+void buscarMinimo();
+void esHoja();
 Gestor gestor;
 Validar validar;
 
@@ -34,9 +39,13 @@ void menu() {
     int opcion = 0;
     do {
         cout << "\nMenú principal\n\nElija una opción\n" <<
-             "01 Agregar datos\n" <<
-             "02 Trasladar datos\n" <<
-             "03 Salir\n";
+             "01 Agregar datos al árbol\n" <<
+             "02 Verificar si el árbol tiene elementos\n" <<
+             "03 Peso del árbol\n" <<
+             "04 Número mayor del árbol\n" <<
+             "05 Número menor del árbol\n" <<
+             "06 Verificar si valor es hoja\n"
+             "08 Salir\n";
         cin >> valor;
         opcion = validar.ingresarInt(valor);
         procesarMenu(opcion, salir);
@@ -48,9 +57,21 @@ void procesarMenu(int & pOpcion, bool & salir) {
             agregarAArbin();
             break;
         case 2:
-//            menuTrasladar();
+            esVacioArbin();
             break;
         case 3:
+            pesoArbin();
+            break;
+        case 4:
+            buscarMaximo();
+            break;
+        case 5:
+            buscarMinimo();
+            break;
+        case 6:
+            esHoja();
+            break;
+        case 8:
             salir = true;
             break;
         default:
@@ -81,7 +102,39 @@ void agregarAArbin() {
         } else {
             cout << "Se produjo un error en la carga...\n";
         }
-
     }
     cout << "Los valores ingresados en el arbol binario se cargaron satisfactoriamente\n";
+}
+void esVacioArbin(){
+    if (gestor.esVacioArbin()) {
+        cout << "El árbol está vacío\n";
+    } else {
+        cout << "El árbol tiene elementos\n";
+    }
+}
+void pesoArbin(){
+    cout << "El peso del árbol es " << gestor.pesoArbin() << endl;
+}
+void buscarMinimo(){
+    if (!gestor.esVacioArbin()) {
+        cout << "El valor mínimo del árbol es " << gestor.buscarMinimo() << endl;
+    } else {
+        cout << "Aún no se ha ingresado datos al árbol\n";
+    }
+}
+void buscarMaximo(){
+    if (!gestor.esVacioArbin()) {
+        cout << "El valor máximo del árbol es " << gestor.buscarMaximo() << endl;
+    } else {
+        cout << "Aún no se ha ingresado datos al árbol\n";
+    }
+}
+void esHoja(){
+    string msg = "ingrese el valor\n";
+    string esHoja = gestor.esHoja(ingresarNum(msg));
+    if (!gestor.esVacioArbin()) {
+        cout << esHoja;
+    } else {
+        cout << "Aún no se ha ingresado datos al árbol\n";
+    }
 }
