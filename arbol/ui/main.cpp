@@ -183,13 +183,7 @@ void camino(){
     if (!gestor.esVacioArbin()) {
         int inicial = ingresarNum("Ingrese el valor inicial");
         int final = ingresarNum("Ingrese el valor final");
-        string camino = gestor.camino(inicial, final);
-        if(camino.substr(camino.length()-1, camino.length()-1) == " "){
-            cout << "No hay camino entre los valores ingresados\n";
-        } else {
-            cout << camino << endl;
-        }
-
+        cout << gestor.camino(inicial, final) << endl;
     } else {
         cout << "Aún no se ha ingresado datos al árbol\n";
     }

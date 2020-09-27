@@ -61,6 +61,7 @@ private:
 
     Nodo *buscarNodo(int); // retorna el nodo del valor pasado por parámetro
 
+    // TODO: PENDIENTE DE ELIMINAR, NO ES NECESARIO
     Nodo *buscarNodoPrevio(int); // retorna el nodo previo del valor pasado por parámetro
 
     int nivelRecursivo(Nodo*); //Calcula la nivel de un Arbin

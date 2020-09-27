@@ -53,7 +53,11 @@ int Gestor::numHojas() {
 }
 
 string Gestor::camino(int inicio, int final) {
-    return arbol->camino(inicio, final);
+    string camino = arbol->camino(inicio, final);
+    if(camino.substr(camino.length()-1, camino.length()-1) == " "){
+        camino = "No hay camino entre los valores ingresados\n";
+    }
+    return camino;
 }
 
 

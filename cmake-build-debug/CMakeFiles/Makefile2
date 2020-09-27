@@ -94,12 +94,12 @@ clean: CMakeFiles/arbol_binario_busqueda.dir/clean
 CMakeFiles/arbol_binario_busqueda.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/arbol_binario_busqueda.dir/build.make CMakeFiles/arbol_binario_busqueda.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/arbol_binario_busqueda.dir/build.make CMakeFiles/arbol_binario_busqueda.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/mmartinez/Documents/GitHub/estructuras_datos_II/arbol_binario_busqueda/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target arbol_binario_busqueda"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/mmartinez/Documents/GitHub/estructuras_datos_II/arbol_binario_busqueda/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target arbol_binario_busqueda"
 .PHONY : CMakeFiles/arbol_binario_busqueda.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/arbol_binario_busqueda.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mmartinez/Documents/GitHub/estructuras_datos_II/arbol_binario_busqueda/cmake-build-debug/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mmartinez/Documents/GitHub/estructuras_datos_II/arbol_binario_busqueda/cmake-build-debug/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/arbol_binario_busqueda.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mmartinez/Documents/GitHub/estructuras_datos_II/arbol_binario_busqueda/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/arbol_binario_busqueda.dir/rule

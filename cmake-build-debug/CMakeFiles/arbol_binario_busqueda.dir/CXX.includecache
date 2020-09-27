@@ -20,3 +20,23 @@ Nodo.h
 
 /Users/mmartinez/Documents/GitHub/estructuras_datos_II/arbol_binario_busqueda/arbol/bl/Nodo.h
 
+/Users/mmartinez/Documents/GitHub/estructuras_datos_II/arbol_binario_busqueda/arbol/tl/Gestor.cpp
+Gestor.h
+/Users/mmartinez/Documents/GitHub/estructuras_datos_II/arbol_binario_busqueda/arbol/tl/Gestor.h
+
+/Users/mmartinez/Documents/GitHub/estructuras_datos_II/arbol_binario_busqueda/arbol/tl/Gestor.h
+../bl/Arbin.h
+/Users/mmartinez/Documents/GitHub/estructuras_datos_II/arbol_binario_busqueda/arbol/bl/Arbin.h
+
+/Users/mmartinez/Documents/GitHub/estructuras_datos_II/arbol_binario_busqueda/arbol/ui/main.cpp
+iostream
+-
+../tl/Gestor.h
+/Users/mmartinez/Documents/GitHub/estructuras_datos_II/arbol_binario_busqueda/arbol/tl/Gestor.h
+../utilitario/Validar.h
+/Users/mmartinez/Documents/GitHub/estructuras_datos_II/arbol_binario_busqueda/arbol/utilitario/Validar.h
+
+/Users/mmartinez/Documents/GitHub/estructuras_datos_II/arbol_binario_busqueda/arbol/utilitario/Validar.h
+iostream
+-
+
