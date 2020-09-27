@@ -165,28 +165,6 @@ Nodo *Arbin::buscarNodo(int pValor) {
     } while (aux != nullptr);
     return aux;
 }
-Nodo *Arbin::buscarNodoPrevio(int pValor) {
-    Nodo *aux = getRaiz();
-    Nodo *previo;
-    if (aux->getNum() == pValor){
-        return nullptr;
-    } else {
-        do {
-            if (aux->getNum() == pValor){
-                break;
-            }
-            previo = aux;
-            if (aux->getNum() > pValor) {
-                aux = aux->getIzq();
-            } else if (aux->getNum() < pValor){
-                aux = aux->getDer();
-            } else {
-                previo = nullptr;
-            }
-        } while (aux != nullptr);
-        return previo;
-    }
-}
 /**
  * Método:              nivel
  * Descripción:         Método que permite obtener el nivel del árbol a travéz
@@ -302,27 +280,92 @@ string Arbin::caminoRecursivo(Nodo *nodo, int pValorFinal) {
     }
     return camino;
 }
-
+/**
+ * Método:              preOrden
+ * Descripción:         Método recursivo que permite mostrar el recorrido
+ * del árbol en pre-orden.
+ * @return              variable de tipo string que represneta el recorrido
+ * del árbol
+ */
 string Arbin::preOrden() {
     return preOrdenRecursivo(getRaiz());
 }
-
+/**
+ * Método:              preOrdenRecursivo
+ * Descripción:         Método recursivo (privado) que permite recorrer el
+ * árbol siguiendo el esquema: se recorre la raíz, en pre-orden el subárbol
+ * izquierdo, y en preorden el subárbol derecho.
+ * @param nodo          varible de tipo nodo que representa la raíz
+ * del árbol.
+ * @return              variable de tipo string que represneta el recorrido
+ * del árbol
+ */
 string Arbin::preOrdenRecursivo(Nodo *nodo) {
     string preorden;
     if (nodo != nullptr){
-        preorden = to_string(nodo->getNum());
-        preorden = to_string(nodo->getNum()) + " - " + preOrdenRecursivo(nodo->getIzq());
+        preorden = to_string(nodo->getNum()) + " - ";
+        preorden += preOrdenRecursivo(nodo->getIzq());
         preorden += preOrdenRecursivo(nodo->getDer());
     }
     return preorden;
 }
-
+/**
+ * Método:              inOrden
+ * Descripción:         Método recursivo que permite mostrar el recorrido
+ * del árbol in-orden.
+ * @return              variable de tipo string que represneta el recorrido
+ * del árbol
+ */
 string Arbin::inOrden() {
     return inOrdenRecursivo(getRaiz());
 }
-
+/**
+ * Método:              inOrdenRecursivo
+ * Descripción:         Método recursivo (privado) que permite recorrer el
+ * árbol siguiendo la secuencia se recorre en in-orden el subárbol izquierdo,
+ * se recorre la raíz, y se recore en in-orden el subárbol derecho.
+ * @param nodo          varible de tipo nodo que representa la raíz
+ * del árbol.
+ * @return              variable de tipo string que represneta el recorrido
+ * del árbol
+ */
 string Arbin::inOrdenRecursivo(Nodo *nodo) {
-    return std::string();
+    string inOrden;
+    if (nodo != nullptr){
+        inOrden = inOrdenRecursivo(nodo->getIzq());
+        inOrden += to_string(nodo->getNum()) + " - ";
+        inOrden += inOrdenRecursivo(nodo->getDer());
+    }
+    return inOrden;
+}
+/**
+ * Método:              postOrden
+ * Descripción:         Método que permite mostrar el recorrido del
+ * árbol en post-orden (izquierda - derecha - raíz)
+ * @return              variable de tipo string que represneta el recorrido
+ * del árbol
+ */
+string Arbin::postOrden() {
+    return postOrdenRecursivo(getRaiz());
+}
+/**
+ * Método:              postOrdenRecursivo
+ * Descripción:         Método recursivo (privado) que permite recorrer el árbol
+ * siguiendo la secuencia recorre en post-orden el subárbol izquierdo,
+ * se recorre en post-orden el subárbol derecha, se recorre la raíz.
+ * @param nodo          varible de tipo nodo que representa la raíz
+ * del árbol.
+ * @return              variable de tipo string que represneta el recorrido
+ * del árbol
+ */
+string Arbin::postOrdenRecursivo(Nodo *nodo) {
+    string postOrden;
+    if (nodo != nullptr){
+        postOrden = postOrdenRecursivo(nodo->getIzq());
+        postOrden += postOrdenRecursivo(nodo->getDer());
+        postOrden += to_string(nodo->getNum()) + " - ";
+    }
+    return postOrden;
 }
 
 

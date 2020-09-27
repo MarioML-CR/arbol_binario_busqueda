@@ -47,6 +47,8 @@ public:
 
     string inOrden(); // Imprime el Arbin de forma IRD (izquierda - raíz - derecha)
 
+    string postOrden(); // Imprime el Arbin de forma IDR (izquierda - derecha - raíz)
+
     // TODO: pendiente de acá en adelante.
 
     bool eliminarElem(int); //Elimina un elemento del Arbin.
@@ -64,9 +66,6 @@ private:
 
     Nodo *buscarNodo(int); // retorna el nodo del valor pasado por parámetro
 
-    // TODO: PENDIENTE DE ELIMINAR, NO ES NECESARIO
-    Nodo *buscarNodoPrevio(int); // retorna el nodo previo del valor pasado por parámetro
-
     int nivelRecursivo(Nodo*); //Calcula la nivel de un Arbin
 
     int numHojasRecursivo(Nodo*); //Calcula el número de hojas de un Arbin
@@ -76,6 +75,8 @@ private:
     string preOrdenRecursivo(Nodo*); // Imprime el Arbin de forma RID (raíz - izquierda - derecha)
 
     string inOrdenRecursivo(Nodo*); // Imprime el Arbin de forma IRD (izquierda - raíz - derecha)
+
+    string postOrdenRecursivo(Nodo*); // Imprime el Arbin de forma IDR (izquierda - derecha - raíz)
 };
 
 

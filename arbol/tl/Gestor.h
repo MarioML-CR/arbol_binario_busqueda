@@ -40,6 +40,8 @@ public:
 
     string inOrden(); // Imprime el Arbin de forma IRD (izquierda - raíz - derecha)
 
+    string postOrden(); // Imprime el Arbin de forma IDR (izquierda - derecha - raíz)
+
 private:
     Arbin *arbol;
 };

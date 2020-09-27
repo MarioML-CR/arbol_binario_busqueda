@@ -101,10 +101,10 @@ void procesarMenu(int & pOpcion, bool & salir) {
             preOrden();
             break;
         case 12:
-//            postOrden();
+            postOrden();
             break;
         case 13:
-//            inOrden();
+            inOrden();
             break;
         case 18:
             salir = true;
@@ -212,7 +212,7 @@ void preOrden(){
 }
 void postOrden(){
     if (!gestor.esVacioArbin()) {
-//        cout << gestor.postOrden() << endl;
+        cout << gestor.postOrden() << endl;
     } else {
         cout << "Aún no se ha ingresado datos al árbol\n";
     }

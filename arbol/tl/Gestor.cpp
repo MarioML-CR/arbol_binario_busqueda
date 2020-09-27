@@ -72,6 +72,12 @@ string Gestor::inOrden() {
     return inOrden;
 }
 
+string Gestor::postOrden() {
+    string postOrden = arbol->postOrden();
+    postOrden = postOrden.substr(0, postOrden.length() - 3);
+    return postOrden;
+}
+
 
 
 
