@@ -303,6 +303,29 @@ string Arbin::caminoRecursivo(Nodo *nodo, int pValorFinal) {
     return camino;
 }
 
+string Arbin::preOrden() {
+    return preOrdenRecursivo(getRaiz());
+}
+
+string Arbin::preOrdenRecursivo(Nodo *nodo) {
+    string preorden;
+    if (nodo != nullptr){
+        preorden = to_string(nodo->getNum());
+        preorden = to_string(nodo->getNum()) + " - " + preOrdenRecursivo(nodo->getIzq());
+        preorden += preOrdenRecursivo(nodo->getDer());
+    }
+    return preorden;
+}
+
+string Arbin::inOrden() {
+    return inOrdenRecursivo(getRaiz());
+}
+
+string Arbin::inOrdenRecursivo(Nodo *nodo) {
+    return std::string();
+}
+
+
 
 
 

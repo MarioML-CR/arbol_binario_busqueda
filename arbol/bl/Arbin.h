@@ -43,6 +43,10 @@ public:
 
     string camino(int, int); // Calcula el camino entre dos elementos del Arbin
 
+    string preOrden(); // Imprime el Arbin de forma RID (raíz - izquierda - derecha)
+
+    string inOrden(); // Imprime el Arbin de forma IRD (izquierda - raíz - derecha)
+
     // TODO: pendiente de acá en adelante.
 
     bool eliminarElem(int); //Elimina un elemento del Arbin.
@@ -51,7 +55,6 @@ public:
 
     bool igualesArbin(); //Dice si dos Arbin son iguales o no.
 
-    string imprimirArbin(); //Imprime el arbol binario
 
 private:
     Nodo *raiz;
@@ -70,9 +73,9 @@ private:
 
     string caminoRecursivo(Nodo*, int); //Calcula el camino entre dos elementos del Arbin
 
-    // TODO: pendiente de acá en adelante.
+    string preOrdenRecursivo(Nodo*); // Imprime el Arbin de forma RID (raíz - izquierda - derecha)
 
-    string imprimirArbinRecursivo(); //Imprime el arbol binario
+    string inOrdenRecursivo(Nodo*); // Imprime el Arbin de forma IRD (izquierda - raíz - derecha)
 };
 
 

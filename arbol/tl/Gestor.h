@@ -36,6 +36,10 @@ public:
 
     string camino(int, int); // Calcula el camino entre dos elementos del Arbin
 
+    string preOrden(); // Imprime el Arbin de forma RID (raíz - izquierda - derecha)
+
+    string inOrden(); // Imprime el Arbin de forma IRD (izquierda - raíz - derecha)
+
 private:
     Arbin *arbol;
 };

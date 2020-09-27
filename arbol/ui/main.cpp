@@ -6,7 +6,7 @@
  * Nombre del programa: Árbol binario de búsquda
  * Descripción: Programa que contiene la estructura básica de un árbol binario,
  * que recibe números enteros y permite mostrarlos en preorden (RID: raíz -
- * izquierda - derecha), in-orden (IRD: izquierda - raíz - derecha) y en post-orden
+ * izquierda - derecha), in-orden (IRD: izquierda - raíz - derecha) y en post-inOrden
  * (IDR: izquierda - derecha - raíz)
  * Fecha de creación: 2020-09-22
  * Autores:
@@ -30,6 +30,9 @@ void nivel();
 void altura();
 void numHojas();
 void camino();
+void preOrden();
+void postOrden();
+void inOrden();
 Gestor gestor;
 Validar validar;
 
@@ -53,7 +56,10 @@ void menu() {
              "08 Altura del árbol\n" <<
              "09 Número de hojas del árbol\n" <<
              "10 Camino entre dos valores\n" <<
-             "12 Salir\n";
+             "11 Imprimir árbol en PREORDEN\n" <<
+             "12 Imprimir árbol en POSTORDEN\n" <<
+             "13 Imprimir árbol en ORDEN\n" <<
+             "18 Salir\n";
         cin >> valor;
         opcion = validar.ingresarInt(valor);
         procesarMenu(opcion, salir);
@@ -91,7 +97,16 @@ void procesarMenu(int & pOpcion, bool & salir) {
         case 10:
             camino();
             break;
+        case 11:
+            preOrden();
+            break;
         case 12:
+//            postOrden();
+            break;
+        case 13:
+//            inOrden();
+            break;
+        case 18:
             salir = true;
             break;
         default:
@@ -184,6 +199,27 @@ void camino(){
         int inicial = ingresarNum("Ingrese el valor inicial");
         int final = ingresarNum("Ingrese el valor final");
         cout << gestor.camino(inicial, final) << endl;
+    } else {
+        cout << "Aún no se ha ingresado datos al árbol\n";
+    }
+}
+void preOrden(){
+    if (!gestor.esVacioArbin()) {
+        cout << gestor.preOrden() << endl;
+    } else {
+        cout << "Aún no se ha ingresado datos al árbol\n";
+    }
+}
+void postOrden(){
+    if (!gestor.esVacioArbin()) {
+//        cout << gestor.postOrden() << endl;
+    } else {
+        cout << "Aún no se ha ingresado datos al árbol\n";
+    }
+}
+void inOrden(){
+    if (!gestor.esVacioArbin()) {
+        cout << gestor.inOrden() << endl;
     } else {
         cout << "Aún no se ha ingresado datos al árbol\n";
     }

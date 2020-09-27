@@ -60,6 +60,18 @@ string Gestor::camino(int inicio, int final) {
     return camino;
 }
 
+string Gestor::preOrden() {
+    string preorden = arbol->preOrden();
+    preorden = preorden.substr(0, preorden.length() - 3);
+    return preorden;
+}
+
+string Gestor::inOrden() {
+    string inOrden = arbol->inOrden();
+    inOrden = inOrden.substr(0, inOrden.length() - 3);
+    return inOrden;
+}
+
 
 
 
