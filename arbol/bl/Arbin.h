@@ -41,11 +41,11 @@ public:
 
     int numHojas(); //Calcula el número de hojas de un Arbin
 
+    string camino(int, int); // Calcula el camino entre dos elementos del Arbin
+
     // TODO: pendiente de acá en adelante.
 
     bool eliminarElem(int); //Elimina un elemento del Arbin.
-
-    bool hayCamino(int, int); //Dice si hay camino entre dos elementos del Arbin
 
     bool esCompleto(); //Retorna si un Arbin es completo o no
 
@@ -59,13 +59,19 @@ private:
 
     void insertarElemRecursivo(Nodo* , Nodo*, int, int); //Inserta un entero en el árbol ordenado.
 
-    string imprimirArbinRecursivo(); //Imprime el arbol binario
-
     Nodo *buscarNodo(int); // retorna el nodo del valor pasado por parámetro
+
+    Nodo *buscarNodoPrevio(int); // retorna el nodo previo del valor pasado por parámetro
 
     int nivelRecursivo(Nodo*); //Calcula la nivel de un Arbin
 
     int numHojasRecursivo(Nodo*); //Calcula el número de hojas de un Arbin
+
+    string caminoRecursivo(Nodo*, int); //Calcula el camino entre dos elementos del Arbin
+
+    // TODO: pendiente de acá en adelante.
+
+    string imprimirArbinRecursivo(); //Imprime el arbol binario
 };
 
 

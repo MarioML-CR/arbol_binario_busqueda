@@ -19,6 +19,9 @@ CMakeFiles/arbol_binario_busqueda.dir/arbol/ui/main.cpp.o: ../arbol/tl/Gestor.h
 CMakeFiles/arbol_binario_busqueda.dir/arbol/ui/main.cpp.o: ../arbol/ui/main.cpp
 CMakeFiles/arbol_binario_busqueda.dir/arbol/ui/main.cpp.o: ../arbol/utilitario/Validar.h
 
+CMakeFiles/arbol_binario_busqueda.dir/arbol/utilitario/Util.cpp.o: ../arbol/utilitario/Util.cpp
+CMakeFiles/arbol_binario_busqueda.dir/arbol/utilitario/Util.cpp.o: ../arbol/utilitario/Util.h
+
 CMakeFiles/arbol_binario_busqueda.dir/arbol/utilitario/Validar.cpp.o: ../arbol/utilitario/Validar.cpp
 CMakeFiles/arbol_binario_busqueda.dir/arbol/utilitario/Validar.cpp.o: ../arbol/utilitario/Validar.h
 

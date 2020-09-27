@@ -34,6 +34,8 @@ public:
 
     int numHojas(); //Calcula el número de hojas de un Arbin
 
+    string camino(int, int); // Calcula el camino entre dos elementos del Arbin
+
 private:
     Arbin *arbol;
 };

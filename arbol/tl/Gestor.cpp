@@ -52,6 +52,10 @@ int Gestor::numHojas() {
     return arbol->numHojas();
 }
 
+string Gestor::camino(int inicio, int final) {
+    return arbol->camino(inicio, final);
+}
+
 
 
 

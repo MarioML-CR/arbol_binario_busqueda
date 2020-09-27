@@ -2,6 +2,7 @@
 // Created by Mario Martinez on 22/09/20.
 //
 
+#include <iostream>
 #include "Arbin.h"
 /**
  * Método:          Arbin
@@ -164,6 +165,28 @@ Nodo *Arbin::buscarNodo(int pValor) {
     } while (aux != nullptr);
     return aux;
 }
+Nodo *Arbin::buscarNodoPrevio(int pValor) {
+    Nodo *aux = getRaiz();
+    Nodo *previo;
+    if (aux->getNum() == pValor){
+        return nullptr;
+    } else {
+        do {
+            if (aux->getNum() == pValor){
+                break;
+            }
+            previo = aux;
+            if (aux->getNum() > pValor) {
+                aux = aux->getIzq();
+            } else if (aux->getNum() < pValor){
+                aux = aux->getDer();
+            } else {
+                previo = nullptr;
+            }
+        } while (aux != nullptr);
+        return previo;
+    }
+}
 /**
  * Método:              nivel
  * Descripción:         Método que permite obtener el nivel del árbol a travéz
@@ -194,15 +217,29 @@ int Arbin::nivelRecursivo(Nodo * nodo) {
         }
     }
 }
-
+/**
+ * Método:              altura
+ * Descripción:         Método que permite establecer la altura el árbol
+ * @return              variable de tipo int que representa la altura del árbol
+ */
 int Arbin::altura() {
     return nivel() + 1;
 }
-
+/**
+ * Método:              numHojas
+ * Descripción:         Método que permite establecer el número de hojas del árbol
+ * @return              variable de tipo int que representa el número hojas del árbol
+ */
 int Arbin::numHojas() {
     return numHojasRecursivo(getRaiz());
 }
-
+/**
+ * Método:              numHojasRecursivo
+ * Descripción:         Método recursivo que permite establecer el número de hojas del
+ * árbol.
+ * @param nodo          varible de tipo nodo que representa la raíz del árbol
+ * @return              variable de tipo int que representa el número hojas del árbol
+ */
 int Arbin::numHojasRecursivo(Nodo * nodo) {
     if (nodo == nullptr){
         return 0;
@@ -214,6 +251,58 @@ int Arbin::numHojasRecursivo(Nodo * nodo) {
         }
     }
 }
+/**
+ * Método:              camino
+ * Descripción:         Método que permite generar el camino del árbol entre dos de sus puntos
+ * @param pValorInicial variable de tipo int que representa el valor del nodo inicial a partir
+ * del cual se establecerá el camino.
+ * @param pValorFinal   variable de tipo int que representa el valor del nodo final a partir
+ * del cual se establecerá el camino.
+ * @return              variable de tipo string que representa el camino del árbol.
+ */
+string Arbin::camino(int pValorInicial, int pValorFinal) {
+    Nodo *inicial = buscarNodo(pValorInicial);
+    Nodo *final = buscarNodo(pValorFinal);
+    if (inicial == nullptr || final == nullptr){
+        return "Al menos uno de los valores ingresados no existe en el árbol";
+    } else if(pValorInicial == pValorFinal) {
+        return "No hay camino entre los valores ingresados";
+    }
+    else {
+        return caminoRecursivo(inicial, pValorFinal);
+    }
+
+}
+/**
+ * Método:              caminoRecursivo
+ * Descripción:         Método recursivo que permite establecer el camino entre el valor
+ * que contiene el nodo inicial y el valor final recibido como parámetro
+ * @param nodo          varible de tipo nodo que representa al nodo que contiene el valor
+ * inicial
+ * @param pValorFinal   variable de tipo int que representa el valor final del camino.
+ * @return              variable de tipo string que representa el camino del árbol.
+ */
+string Arbin::caminoRecursivo(Nodo *nodo, int pValorFinal) {
+    string camino;
+    if (getRaiz() == nullptr){
+        camino = "El árbol está vacío";
+    } else if (nodo == nullptr){
+        return "";
+    } else if (nodo->getNum() == pValorFinal){
+        camino = to_string(nodo->getNum());
+    }
+    else {
+        if (nodo->getNum() > pValorFinal){
+            Nodo *aux = nodo->getIzq();
+            camino = to_string(nodo->getNum()) + " - " + caminoRecursivo(aux, pValorFinal);
+        } else if (nodo->getNum() < pValorFinal){
+            Nodo *aux = nodo->getDer();
+            camino = to_string(nodo->getNum()) + " - " + caminoRecursivo(aux, pValorFinal);
+        }
+    }
+    return camino;
+}
+
 
 
 

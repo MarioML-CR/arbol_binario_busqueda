@@ -29,6 +29,7 @@ void esHoja();
 void nivel();
 void altura();
 void numHojas();
+void camino();
 Gestor gestor;
 Validar validar;
 
@@ -51,6 +52,7 @@ void menu() {
              "07 Nivel del arbol\n" <<
              "08 Altura del árbol\n" <<
              "09 Número de hojas del árbol\n" <<
+             "10 Camino entre dos valores\n" <<
              "12 Salir\n";
         cin >> valor;
         opcion = validar.ingresarInt(valor);
@@ -85,6 +87,9 @@ void procesarMenu(int & pOpcion, bool & salir) {
             break;
         case 9:
             numHojas();
+            break;
+        case 10:
+            camino();
             break;
         case 12:
             salir = true;
@@ -170,6 +175,21 @@ void altura(){
 void numHojas(){
     if (!gestor.esVacioArbin()) {
         cout << "El número de hojas del árbol es " << gestor.numHojas() << endl;
+    } else {
+        cout << "Aún no se ha ingresado datos al árbol\n";
+    }
+}
+void camino(){
+    if (!gestor.esVacioArbin()) {
+        int inicial = ingresarNum("Ingrese el valor inicial");
+        int final = ingresarNum("Ingrese el valor final");
+        string camino = gestor.camino(inicial, final);
+        if(camino.substr(camino.length()-1, camino.length()-1) == " "){
+            cout << "No hay camino entre los valores ingresados\n";
+        } else {
+            cout << camino << endl;
+        }
+
     } else {
         cout << "Aún no se ha ingresado datos al árbol\n";
     }
