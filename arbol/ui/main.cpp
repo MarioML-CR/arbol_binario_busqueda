@@ -33,6 +33,7 @@ void camino();
 void preOrden();
 void postOrden();
 void inOrden();
+void eliminarElem();
 Gestor gestor;
 Validar validar;
 
@@ -59,6 +60,7 @@ void menu() {
              "11 Imprimir árbol en PREORDEN\n" <<
              "12 Imprimir árbol en POSTORDEN\n" <<
              "13 Imprimir árbol en ORDEN\n" <<
+             "14 Eliminar elemento\n" <<
              "18 Salir\n";
         cin >> valor;
         opcion = validar.ingresarInt(valor);
@@ -106,6 +108,9 @@ void procesarMenu(int & pOpcion, bool & salir) {
         case 13:
             inOrden();
             break;
+        case 14:
+            eliminarElem();
+            break;
         case 18:
             salir = true;
             break;
@@ -152,14 +157,25 @@ void pesoArbin(){
 }
 void buscarMinimo(){
     if (!gestor.esVacioArbin()) {
-        cout << "El valor mínimo del árbol es " << gestor.buscarMinimo() << endl;
+        int min = gestor.buscarMinimo();
+        if(min != -99999){
+            cout << "El valor mínimo del árbol es " << min << endl;
+        } else {
+            cout << "Aún no se ha ingresado datos al árbol\n";
+        }
+
     } else {
         cout << "Aún no se ha ingresado datos al árbol\n";
     }
 }
 void buscarMaximo(){
     if (!gestor.esVacioArbin()) {
-        cout << "El valor máximo del árbol es " << gestor.buscarMaximo() << endl;
+        int max = gestor.buscarMaximo();
+        if (max != -99999){
+            cout << "El valor máximo del árbol es " << max << endl;
+        } else {
+            cout << "Aún no se ha ingresado datos al árbol\n";
+        }
     } else {
         cout << "Aún no se ha ingresado datos al árbol\n";
     }
@@ -220,6 +236,15 @@ void postOrden(){
 void inOrden(){
     if (!gestor.esVacioArbin()) {
         cout << gestor.inOrden() << endl;
+    } else {
+        cout << "Aún no se ha ingresado datos al árbol\n";
+    }
+}
+void eliminarElem(){
+    if (!gestor.esVacioArbin()) {
+        string msg = "Ingrese el número que desea eliminar del árbol\n";
+        int num = ingresarNum(msg);
+        cout << gestor.eliminarElem(num) << endl;
     } else {
         cout << "Aún no se ha ingresado datos al árbol\n";
     }

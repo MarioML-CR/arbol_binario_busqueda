@@ -37,7 +37,11 @@ int Gestor::buscarMinimo() {
 }
 
 string Gestor::esHoja(int pValor) {
-    return arbol->esHoja(pValor);
+    if (arbol->esHoja(pValor)){
+        return "El valor ingresado es hoja";
+    } else {
+        return "El valor ingresado no es hoja";
+    }
 }
 
 int Gestor::nivel() {
@@ -76,6 +80,15 @@ string Gestor::postOrden() {
     string postOrden = arbol->postOrden();
     postOrden = postOrden.substr(0, postOrden.length() - 3);
     return postOrden;
+}
+
+string Gestor::eliminarElem(int pValor) {
+    bool resultado = arbol->eliminarElem(pValor);
+    if (resultado){
+        return "El elemento se eliminó satisfactoriamente\n";
+    } else {
+        return "El elemento No fue eliminado\n";
+    }
 }
 
 

@@ -95,14 +95,23 @@ bool Arbin::insertarElem(int pValor) {
  * @return              variable de tipo int que representa el valor máximo del árbol
  */
 int Arbin::buscarMaximo() {
-    if (getRaiz() == nullptr){
-        return NULL;
+    return buscarMaximo(getRaiz());
+}
+
+
+int Arbin::buscarMaximo(Nodo * nodo) {
+    if (nodo == nullptr){
+        return -99999;
     } else {
-        Nodo *aux = getRaiz();
-        do {
-            aux = aux->getDer();
-        } while (aux->getDer() != nullptr);
-        return aux->getNum();
+        if (!esHoja(nodo->getNum())){
+            Nodo *aux = nodo;
+            do {
+                aux = aux->getDer();
+            } while (aux->getDer() != nullptr);
+            return aux->getNum();
+        } else {
+            return nodo->getNum();
+        }
     }
 }
 /**
@@ -111,34 +120,20 @@ int Arbin::buscarMaximo() {
  * @return              variable de tipo int que representa el valor mínimo del árbol
  */
 int Arbin::buscarMinimo() {
-    if (getRaiz() == nullptr){
-        return NULL;
-    } else {
-        Nodo *aux = getRaiz();
-        do {
-            aux = aux->getIzq();
-        } while (aux->getIzq() != nullptr);
-        return aux->getNum();
-    }
+    return buscarMinimo(getRaiz());
 }
-/**
- * Método:              esHoja
- * Descripción:         Método que permite establecer si al valor ingresado
- * es hoja o no, si no existe en el arbol o si no hay datos en el árbol.
- * @param pValor        valor que representa el valor a buscar en el árbol.
- * @return              variable de tipo string con el resultado de la búsqueda.
- */
-string Arbin::esHoja(int pValor) {
-    if (getRaiz() == nullptr){
-        return "\"Aún no se ha ingresado datos al árbol\\n";
+int Arbin::buscarMinimo(Nodo * nodo) {
+    if (nodo == nullptr){
+        return -99999;
     } else {
-        Nodo *nodo = buscarNodo(pValor);
-        if (nodo == nullptr){
-            return "El valor ingresado no se encuentra en el árbol\n";
-        } else if (nodo->getDer() == nullptr && nodo->getIzq() == nullptr){
-            return "El valor ingresado es hoja\n";
+        if(!esHoja(nodo->getNum())){
+            Nodo *aux = nodo;
+            do {
+                aux = aux->getIzq();
+            } while (aux->getIzq() != nullptr);
+            return aux->getNum();
         } else {
-            return "El valor ingresado no hoja\n";
+            return nodo->getNum();
         }
     }
 }
@@ -165,6 +160,52 @@ Nodo *Arbin::buscarNodo(int pValor) {
     } while (aux != nullptr);
     return aux;
 }
+
+Nodo *Arbin::buscarNodoPadre(int pValor) {
+    Nodo *aux = getRaiz();
+    Nodo *previo;
+    if (aux->getNum() == pValor){
+        return nullptr;
+    } else {
+        do {
+            if (aux->getNum() == pValor){
+                break;
+            }
+            previo = aux;
+            if (aux->getNum() > pValor) {
+                aux = aux->getIzq();
+            } else if (aux->getNum() < pValor){
+                aux = aux->getDer();
+            } else {
+                previo = nullptr;
+            }
+        } while (aux != nullptr);
+        return previo;
+    }
+}
+
+/**
+ * Método:              esHoja
+ * Descripción:         Método que permite establecer si al valor ingresado
+ * es hoja o no, si no existe en el arbol o si no hay datos en el árbol.
+ * @param pValor        valor que representa el valor a buscar en el árbol.
+ * @return              variable de tipo string con el resultado de la búsqueda.
+ */
+bool Arbin::esHoja(int pValor) {
+    if (getRaiz() == nullptr){
+        return false;
+    } else {
+        Nodo *nodo = buscarNodo(pValor);
+        if (nodo == nullptr){
+            return false;
+        } else if (nodo->getDer() == nullptr && nodo->getIzq() == nullptr){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
 /**
  * Método:              nivel
  * Descripción:         Método que permite obtener el nivel del árbol a travéz
@@ -367,6 +408,93 @@ string Arbin::postOrdenRecursivo(Nodo *nodo) {
     }
     return postOrden;
 }
+
+bool Arbin::eliminarElem(int pValor) {
+    Nodo *nodoEliminar = buscarNodo(pValor);
+    if (nodoEliminar != nullptr){
+        Nodo *nodoPadreElim = buscarNodoPadre(pValor);
+        if (nodoEliminar == getRaiz() && esHoja(pValor)){
+            nodoEliminar->setNum(0);
+//            delete nodoEliminar;
+        } else if (esHoja(pValor)){
+            if (nodoPadreElim->getIzq() == nodoEliminar){
+                nodoPadreElim->setIzq(nullptr);
+                delete nodoEliminar;
+            } else if (nodoPadreElim->getDer() == nodoEliminar){
+                nodoPadreElim->setDer(nullptr);
+                delete nodoEliminar;
+            }
+            return true;
+        }
+        else {
+
+            if(nodoEliminar->getIzq() != nullptr && nodoEliminar->getDer() == nullptr) {
+                nodoPadreElim->setIzq(nodoEliminar->getIzq());
+                delete nodoEliminar;
+            } else if (nodoEliminar->getIzq() == nullptr && nodoEliminar->getDer() != nullptr) {
+                nodoPadreElim->setDer(nodoEliminar->getDer());
+                delete nodoEliminar;
+            } else {
+                int valorASustituir = buscarMaximo(nodoEliminar);
+                nodoEliminar->setNum(valorASustituir);
+                Nodo *nodoSustituir = buscarNodo(valorASustituir);
+                if (nodoSustituir)
+
+                Nodo *nodoPadreSust = buscarNodoPadre(valorASustituir);
+            }
+            return true;
+        }
+    }
+}
+
+//bool Arbin::eliminarElem(int pValor) {
+//    eliminarIzq(getRaiz(), pValor);
+//    return true;
+//}
+void Arbin::eliminarIzq(Nodo *nodo, int pValor) {
+    if (nodo == nullptr){
+        return;
+    } else {
+        if (pValor < nodo->getNum()){
+            eliminarIzq(nodo->getIzq(), pValor);
+        } else if (pValor > nodo->getNum()){
+            eliminarIzq(nodo->getDer(), pValor);
+        } else {
+            Nodo *aux = nodo;
+            nodo = unirArbin(nodo->getIzq(), nodo->getDer());
+            delete aux;
+        }
+    }
+}
+Nodo *Arbin::unirArbin(Nodo *nodoIzq, Nodo *nodoDer) {
+    if (nodoIzq == nullptr) {
+        return nodoDer;
+    }
+    if (nodoDer == nullptr){
+        return nodoIzq;
+    }
+    Nodo *aux = unirArbin(nodoIzq->getDer(), nodoDer->getIzq());
+    Nodo *tmp1 = nodoIzq->getDer();
+    tmp1 = aux;
+    Nodo *tmp2 = nodoDer->getIzq();
+    tmp2 = nodoIzq;
+    return nodoDer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

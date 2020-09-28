@@ -33,7 +33,7 @@ public:
 
     int buscarMinimo(); //Busca el elemento de menor valor
 
-    string esHoja(int); //Dice si un Arbin es hoja o no
+    bool esHoja(int); //Dice si un Arbin es hoja o no
 
     int nivel(); //Calcula del nivel de un Arbin
 
@@ -49,9 +49,9 @@ public:
 
     string postOrden(); // Imprime el Arbin de forma IDR (izquierda - derecha - raíz)
 
-    // TODO: pendiente de acá en adelante.
-
     bool eliminarElem(int); //Elimina un elemento del Arbin.
+
+    // TODO: pendiente de acá en adelante.
 
     bool esCompleto(); //Retorna si un Arbin es completo o no
 
@@ -66,6 +66,12 @@ private:
 
     Nodo *buscarNodo(int); // retorna el nodo del valor pasado por parámetro
 
+    Nodo *buscarNodoPadre(int); // etorna el nodo previo del valor pasado por parámetro
+
+    int buscarMaximo(Nodo*); //Busca el elemento de mayor valor
+
+    int buscarMinimo(Nodo*); //Busca el elemento de menor valor
+
     int nivelRecursivo(Nodo*); //Calcula la nivel de un Arbin
 
     int numHojasRecursivo(Nodo*); //Calcula el número de hojas de un Arbin
@@ -77,6 +83,10 @@ private:
     string inOrdenRecursivo(Nodo*); // Imprime el Arbin de forma IRD (izquierda - raíz - derecha)
 
     string postOrdenRecursivo(Nodo*); // Imprime el Arbin de forma IDR (izquierda - derecha - raíz)
+
+    void  eliminarIzq(Nodo *, int);
+
+    Nodo *unirArbin(Nodo*, Nodo*); // Une dos árboles
 };
 
 
