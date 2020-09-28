@@ -98,7 +98,12 @@ int Arbin::buscarMaximo() {
     return buscarMaximo(getRaiz());
 }
 
-
+/**
+ * Método:              buscarMaximo
+ * Descripción:         Método recursivo que permite buscar el valor máximo en el árbol
+ * @param nodo          variable de tipo nodo que representa el nodo raíz
+ * @return              variable de tipo int que representa el valor máximo del árbol
+ */
 int Arbin::buscarMaximo(Nodo * nodo) {
     if (nodo == nullptr){
         return -99999;
@@ -122,6 +127,12 @@ int Arbin::buscarMaximo(Nodo * nodo) {
 int Arbin::buscarMinimo() {
     return buscarMinimo(getRaiz());
 }
+/**
+ * Método:              buscarMinimo
+ * Descripción:         Método recursivo que permite buscar el valor mínimo en el árbol
+ * @param nodo          variable de tipo nodo que representa el nodo raíz
+ * @return              variable de tipo int que representa el valor mínimo del árbol
+ */
 int Arbin::buscarMinimo(Nodo * nodo) {
     if (nodo == nullptr){
         return -99999;
@@ -142,8 +153,9 @@ int Arbin::buscarMinimo(Nodo * nodo) {
  * Descripción:         Método que permite mostrar (retornar) el nodo en el cual
  * se ubica el valor recibido como parámetro, o un nodo nulo si es que no hay
  * ningún nodo que contenga este valor.
- * @param pValor
- * @return
+ * @param pValor        variable de tipo int que representa el valor a buscar
+ * @return              variable de tipo nodo que representa el nodo donde se ubica
+ * el valor a buscar
  */
 Nodo *Arbin::buscarNodo(int pValor) {
     Nodo *aux = getRaiz();
@@ -160,7 +172,14 @@ Nodo *Arbin::buscarNodo(int pValor) {
     } while (aux != nullptr);
     return aux;
 }
-
+/**
+ * Método:              buscarNodoPadre
+ * Descripción:         Método que permite mostrar (retornar) el nodo padre
+ * del nodo en el cual se ubica el valor recibido como parámetro.
+ * @param pValor        variable de tipo int que representa el valor a buscar
+ * @return              variable de tipo nodo que representa el nodo padre del nodo
+ * donde se ubica el valor a buscar
+ */
 Nodo *Arbin::buscarNodoPadre(int pValor) {
     Nodo *aux = getRaiz();
     Nodo *previo;
@@ -408,15 +427,19 @@ string Arbin::postOrdenRecursivo(Nodo *nodo) {
     }
     return postOrden;
 }
-
+/**
+ * Método:              eliminarElem
+ * Descripción:         Método que permite eliminar un elemento del árbol
+ * @param pValor        variable de tipo int que representa el valor a eliminar
+ * @return              variable de tipo bool (true si lo eliminó, falso caso contrario)
+ */
 bool Arbin::eliminarElem(int pValor) {
     Nodo *nodoEliminar = buscarNodo(pValor);
     if (nodoEliminar != nullptr){
         Nodo *nodoPadreElim = buscarNodoPadre(pValor);
-        if (nodoEliminar == getRaiz() && esHoja(pValor)){
+        if (nodoEliminar == getRaiz() && esHoja(pValor)){ // Solo hay un elemento en el árbol
             nodoEliminar->setNum(0);
-//            delete nodoEliminar;
-        } else if (esHoja(pValor)){
+        } else if (esHoja(pValor)){ // hay varios elementos y el elemento a elimnar es hoja
             if (nodoPadreElim->getIzq() == nodoEliminar){
                 nodoPadreElim->setIzq(nullptr);
                 delete nodoEliminar;
@@ -425,16 +448,12 @@ bool Arbin::eliminarElem(int pValor) {
                 delete nodoEliminar;
             }
             return true;
-        }
-        else {
-
-            if(nodoEliminar->getIzq() != nullptr && nodoEliminar->getDer() == nullptr) {
+        } else { // hay varios elementos y el elemento a eliminar no es hoja
+            if(nodoEliminar->getIzq() != nullptr && nodoEliminar->getDer() == nullptr) { // el elemento a eliminar tiene un hijo izq
                 nodoPadreElim->setIzq(nodoEliminar->getIzq());
-                delete nodoEliminar;
-            } else if (nodoEliminar->getIzq() == nullptr && nodoEliminar->getDer() != nullptr) {
+            } else if (nodoEliminar->getIzq() == nullptr && nodoEliminar->getDer() != nullptr) { // el elemento a eliminar tiene un hijo derecho
                 nodoPadreElim->setDer(nodoEliminar->getDer());
-                delete nodoEliminar;
-            } else {
+            } else { // el elemento a eliminar tiene dos hijos
                 int valorASustituir = buscarMaximo(nodoEliminar);
                 nodoEliminar->setNum(valorASustituir);
                 Nodo *nodoSustituir = buscarNodo(valorASustituir);
@@ -442,15 +461,13 @@ bool Arbin::eliminarElem(int pValor) {
 
                 Nodo *nodoPadreSust = buscarNodoPadre(valorASustituir);
             }
+            delete nodoEliminar;
             return true;
         }
     }
 }
 
-//bool Arbin::eliminarElem(int pValor) {
-//    eliminarIzq(getRaiz(), pValor);
-//    return true;
-//}
+
 void Arbin::eliminarIzq(Nodo *nodo, int pValor) {
     if (nodo == nullptr){
         return;
