@@ -62,15 +62,19 @@ private:
     Nodo *raiz;
     int peso;
 
-    void insertarElemRecursivo(Nodo* , Nodo*, int, int); //Inserta un entero en el árbol ordenado.
+    bool insertarElemRecursivo(Nodo* , Nodo*, int, int); //Inserta un entero en el árbol ordenado.
 
-    Nodo *buscarNodo(int); // retorna el nodo del valor pasado por parámetro
+    Nodo *buscarNodo(Nodo*, int); // retorna el nodo del valor pasado por parámetro
+
+//    Nodo *buscarNodoa(Nodo*, int); // retorna el nodo del valor pasado por parámetro
 
     Nodo *buscarNodoPadre(int); // etorna el nodo previo del valor pasado por parámetro
 
-    int buscarMaximo(Nodo*); //Busca el elemento de mayor valor
+//    Nodo *buscarNodoPadre(Nodo *); // etorna el nodo previo del valor pasado por parámetro
 
-    int buscarMinimo(Nodo*); //Busca el elemento de menor valor
+    Nodo * nodoMaximo(Nodo*); //Busca el elemento de mayor valor
+
+    Nodo *nodoMinimo(Nodo*); //Busca el elemento de menor valor
 
     int nivelRecursivo(Nodo*); //Calcula la nivel de un Arbin
 
@@ -84,7 +88,9 @@ private:
 
     string postOrdenRecursivo(Nodo*); // Imprime el Arbin de forma IDR (izquierda - derecha - raíz)
 
-    void  eliminarIzq(Nodo *, int);
+    bool  eliminarIzq(Nodo *, int);
+
+    bool eliminarNodoXDer(Nodo *);
 
     Nodo *unirArbin(Nodo*, Nodo*); // Une dos árboles
 };
