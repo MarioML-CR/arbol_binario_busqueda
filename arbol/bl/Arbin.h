@@ -88,11 +88,10 @@ private:
 
     string postOrdenRecursivo(Nodo*); // Imprime el Arbin de forma IDR (izquierda - derecha - raíz)
 
-    bool  eliminarIzq(Nodo *, int);
+    void  eliminarNodoPorIzq(Nodo *, Nodo *, Nodo *, Nodo *); // Elimina un nodo que tiene dos hijos por la izq
 
-    bool eliminarNodoXDer(Nodo *);
+    void eliminarNodoPorDer(Nodo *, Nodo *, Nodo *, Nodo *); // Elimina un nodo que tiene dos hijos por la der
 
-    Nodo *unirArbin(Nodo*, Nodo*); // Une dos árboles
 };
 
 

@@ -204,22 +204,7 @@ Nodo *Arbin::buscarNodoPadre(int pValor) {
         return previo;
     }
 }
-//Nodo *Arbin::buscarNodoPadre(Nodo * nodo) {
-//    Nodo *aux = getRaiz();
-//    Nodo *previo;
-//    if (aux->getNum() == nodo->getNum()){
-//        return nullptr;
-//    } else {
-//        if (aux->getDer() == nodo){
-//            return aux->getDer();
-//        } else if (aux->getIzq() == nodo){
-//            return aux->getIzq();
-//        } else {
-//
-//        }
-//    }
-//    return nullptr;
-//}
+
 /**
  * Método:              esHoja
  * Descripción:         Método que permite establecer si al valor ingresado
@@ -452,170 +437,95 @@ string Arbin::postOrdenRecursivo(Nodo *nodo) {
  * @return              variable de tipo bool (true si lo eliminó, falso caso contrario)
  */
 bool Arbin::eliminarElem(int pValor) {
-    if (esHoja(getRaiz()->getNum())){
-        setPeso(0); // TODO: Eliminar
-        setRaiz(nullptr);
-        return true;
+    Nodo * b = buscarNodo(getRaiz(), pValor);; // nodo del elemento a eliminar
+    if (b == nullptr){
+        return false;
     } else {
-        Nodo *nodoEliminar = buscarNodo(getRaiz(), pValor);
-        Nodo *nodoPadreDeEliminar = buscarNodoPadre(pValor);;
-        Nodo *nodoSustituir;
-        if (nodoEliminar->getDer() != nullptr){
-            nodoSustituir = nodoMinimo(nodoEliminar->getDer());
-        } else {
-            nodoSustituir = nodoMaximo(nodoEliminar->getIzq());
-        }
-        Nodo *nodoPadreSustituir = buscarNodoPadre(nodoSustituir->getNum());
-        if (nodoEliminar == getRaiz()){
-            if (esHoja(nodoSustituir->getNum())){
-                getRaiz()->setNum(nodoSustituir->getNum());
-                if (nodoPadreSustituir->getDer() == nodoSustituir){
-                    nodoPadreSustituir->setDer(nullptr);
+        Nodo * a = buscarNodoPadre(pValor); // nodo padre del elemento a eliminar
+        Nodo * c = b->getIzq(); // nodo izquierdo del elemento a eliminar
+        Nodo * d = b->getDer(); // nodo derecho del elemento a eliminar
+//        Nodo * f; // nodo máximo por la izquierda
+//        Nodo * e; // nodo padre del nodo máximo
+//        Nodo * g; // nodo izquierdo del nodo máximo
+//        if (c == nullptr){
+//            f = d;
+//            e = nullptr;
+//            g = nullptr;
+//        } else {
+//            f = nodoMaximo(c);
+//            e = buscarNodoPadre(f->getNum());
+//            g = f->getIzq(); // nodo izquierdo del nodo máximo
+//        }
+        if (b->getIzq() != nullptr & b->getDer() != nullptr){ // tiene dos hojas
+            eliminarNodoPorIzq(a,b,c,d);
+        } else if (b->getIzq() != nullptr & b->getDer() == nullptr ||
+                   b->getIzq() == nullptr & b->getDer() != nullptr){ // tiene una hoja, izquierda o derecha caso 4 y 5
+            if (b == getRaiz()){
+                setRaiz(c);
+            } else {
+                if (a->getIzq() == b){
+                    a->setIzq(d);
                 } else {
-                    nodoPadreSustituir->setIzq(nullptr);
-                }
-            } else {
-                getRaiz()->setNum(nodoSustituir->getNum());
-                if (getRaiz()->getDer() != nullptr){
-                    getRaiz()->setDer(nodoSustituir->getDer());
-                } else {
-                    getRaiz()->setIzq(nodoSustituir->getDer());
+                    a->setDer(c);
                 }
             }
-            setPeso(getPeso() - 1);
-            delete nodoEliminar;
-            return true;
-        } else if (esHoja(nodoEliminar->getNum())) { // es hoja
-            if (nodoPadreDeEliminar->getDer()->getNum() == nodoEliminar->getNum()){
-                nodoPadreDeEliminar->setDer(nullptr);
-            } else if (nodoPadreDeEliminar->getIzq()->getNum() == nodoEliminar->getNum()){
-                nodoPadreDeEliminar->setIzq(nullptr);
+        } else { // es hoja caso 6
+            if (b == getRaiz()){ // es raíz
+                setRaiz(nullptr);
+            } else { // no es raíz
+                if (a->getIzq() == b){ // el nodo a eliminar corresponde a la rama izquierda del padre a eliminar
+                    a->setIzq(nullptr);
+                } else { // el nodo a eliminar corresponde a la rama derecha del padre a eliminar
+                    a->setDer(nullptr);
+                }
             }
-            setPeso(getPeso() - 1);
-            delete nodoEliminar;
-            return true;
-        } else if (esHoja(nodoSustituir->getNum())){
-            if (nodoPadreDeEliminar->getIzq() == nodoEliminar){
-                nodoPadreSustituir->setIzq(nullptr);
-            } else {
-                nodoPadreSustituir->setDer(nullptr);
-            }
-            nodoPadreDeEliminar->setNum(nodoSustituir->getNum());
-            setPeso(getPeso() - 1);
-            delete nodoEliminar;
-            return true;
-        } else {
-            if(nodoPadreDeEliminar->getDer() == nodoEliminar){
-                nodoPadreDeEliminar->getDer()->setNum(nodoSustituir->getNum());
-            } else {
-                nodoPadreDeEliminar->getIzq()->setNum(nodoSustituir->getNum());
-            }
-            nodoPadreSustituir->getIzq()->setNum(nodoSustituir->getDer()->getNum());
-            nodoSustituir->setDer(nullptr);
-            setPeso(getPeso() - 1);
-//            delete nodoEliminar;
-            return true;
         }
-    }
-
-//    Nodo *sustituir =
-//    return eliminarNodoXDer(buscarNodo(getRaiz(), pValor));
-}
-bool Arbin::eliminarNodoXDer(Nodo * nodo) {
-    Nodo *nodoPadreElim;
-    if (nodo == getRaiz() && esHoja(nodo->getNum())){ // Solo hay un elemento en el árbol
-        setPeso(0); // TODO: Eliminar
-        setRaiz(nullptr);
-        delete nodo;
-        return true;
-    } else if (nodo->getIzq() == nullptr && nodo->getDer() == nullptr){ // hay varios elementos y el elemento a elimnar es hoja
-//        nodoPadreElim = buscarNodoPadre(nodo->getNum());
         setPeso(getPeso() - 1);
-        delete nodo;
-//        if (nodoPadreElim->getIzq() == nodo){
-//            nodoPadreElim->setIzq(nullptr);
-//            delete nodo;
-//        } else if (nodoPadreElim->getDer() == nodo){
-//            nodoPadreElim->setDer(nullptr);
-//            delete nodo;
-//        }
-
+        delete b;
         return true;
-    } else { // hay varios elementos y el elemento a eliminar no es hoja ** Método por derecha
-        if(nodo->getIzq() != nullptr && nodo->getDer() == nullptr) { // el elemento a eliminar tiene un hijo izq
-            Nodo *padre = buscarNodoPadre(nodo->getNum());
-//            nodoPadreElim->setIzq(nodo->getIzq());
-            Nodo *mayor = nodoMaximo(nodo->getIzq());
-            nodoPadreElim = buscarNodoPadre(mayor->getNum());
-            padre->setIzq(nodo->getIzq());
-            nodo->setNum(mayor->getNum());
-//            mayor->setNum(-99999);
-            eliminarNodoXDer(mayor);
-        } else { // el elemento a eliminar tiene dos hijos
-            Nodo *menor = nodoMinimo(nodo->getDer());
-            nodoPadreElim = buscarNodoPadre(menor->getNum());
-            nodo->setNum(menor->getNum());
-//            menor->setNum(-99999);
-            eliminarNodoXDer(menor);
+    }
+}
+void Arbin::eliminarNodoPorDer(Nodo * a, Nodo * b, Nodo * c, Nodo * d) {
+    Nodo * f; // nodo máximo por la izquierda
+    Nodo * e; // nodo padre del nodo máximo
+    Nodo * g; // nodo izquierdo del nodo máximo
+
+}
+
+void Arbin::eliminarNodoPorIzq(Nodo * a, Nodo * b, Nodo * c, Nodo * d) {
+    Nodo * f; // nodo máximo por la izquierda
+    Nodo * e; // nodo padre del nodo máximo
+    Nodo * g; // nodo izquierdo del nodo máximo
+    if (c == nullptr){
+        f = d;
+        e = nullptr;
+        g = nullptr;
+    } else {
+        f = nodoMaximo(c);
+        e = buscarNodoPadre(f->getNum());
+        g = f->getIzq(); // nodo izquierdo del nodo máximo
+    }
+    if (b == getRaiz()){
+        setRaiz(f);
+    } else {
+        if (a->getIzq() == b){ // el nodo a eliminar corresponde a la rama izquierda del padre a eliminar
+            a->setIzq(f);
+        } else { // el nodo a eliminar corresponde a la rama derecha del padre a eliminar
+            a->setDer(f);
         }
-//        setPeso(getPeso() - 1);
-//        delete nodo;
-//        return true;
+    }
+    f->setDer(d);
+    if (b == e && c == f){ // caso 1
+        f->setIzq(g);
+    } else if (c == e && g == nullptr){ // caso 2
+        f->setIzq(c);
+        e->setDer(g);
+    } else { // caso 3
+        f->setIzq(c);
+        e->setDer(g);
     }
 }
 
-bool Arbin::eliminarIzq(Nodo *nodo, int pValor) {
-//    Nodo *nodoEliminar = buscarNodo(pValor);
-//    if (nodoEliminar != nullptr){
-//        Nodo *nodoPadreElim = buscarNodoPadre(pValor);
-//        if (nodoEliminar == getRaiz() && esHoja(pValor)){ // Solo hay un elemento en el árbol
-//            setPeso(0); // TODO: Eliminar
-//            setRaiz(nullptr);
-//            delete nodoEliminar;
-//            return true;
-//        } else if (esHoja(pValor)){ // hay varios elementos y el elemento a elimnar es hoja
-//            if (nodoPadreElim->getIzq() == nodoEliminar){
-//                nodoPadreElim->setIzq(nullptr);
-//                delete nodoEliminar;
-//            } else if (nodoPadreElim->getDer() == nodoEliminar){
-//                nodoPadreElim->setDer(nullptr);
-//                delete nodoEliminar;
-//            }
-//            setPeso(getPeso() - 1);
-//            return true;
-//        } else { // hay varios elementos y el elemento a eliminar no es hoja
-//            if(nodoEliminar->getIzq() != nullptr && nodoEliminar->getDer() == nullptr) { // el elemento a eliminar tiene un hijo izq
-//                nodoPadreElim->setIzq(nodoEliminar->getIzq());
-//            } else if (nodoEliminar->getIzq() == nullptr && nodoEliminar->getDer() != nullptr) { // el elemento a eliminar tiene un hijo derecho
-//                nodoPadreElim->setDer(nodoEliminar->getDer());
-//            } else { // el elemento a eliminar tiene dos hijos
-////                int valorASustituir = nodoMaximo(nodoEliminar);
-//                nodoEliminar->setNum(valorASustituir);
-//                Nodo *nodoSustituir = buscarNodo(valorASustituir);
-//                if (nodoSustituir)
-//
-//                    Nodo *nodoPadreSust = buscarNodoPadre(valorASustituir);
-//            }
-//            setPeso(getPeso() - 1);
-//            delete nodoEliminar;
-            return true;
-//        }
-//    }
-}
-Nodo *Arbin::unirArbin(Nodo *nodoIzq, Nodo *nodoDer) {
-    if (nodoIzq == nullptr) {
-        return nodoDer;
-    }
-    if (nodoDer == nullptr){
-        return nodoIzq;
-    }
-    Nodo *aux = unirArbin(nodoIzq->getDer(), nodoDer->getIzq());
-    Nodo *tmp1 = nodoIzq->getDer();
-    tmp1 = aux;
-    Nodo *tmp2 = nodoDer->getIzq();
-    tmp2 = nodoIzq;
-    return nodoDer;
-}
 
 
 
