@@ -13,7 +13,7 @@
  *      Francisco Sandoval Cordero
  *      Juan Hidalgo González
  *      Mario Martínez Lanuza
- * Modificación: 2020-09-23
+ * Modificación: 2020-10-07
  */
 
 using namespace std;
@@ -323,11 +323,7 @@ void insertarEnArbolB(){
     cout << "Finalizado el procesamiento de datos ...\n";
 }
 void sonArbolesIguales(){
-    if (!gestor.esVacioArbin()) {
-        cout << gestor.sonArbolesIguales() << endl;
-    } else {
-        cout << "Aún no se ha ingresado datos al árbol\n";
-    }
+    cout << gestor.sonArbolesIguales() << endl;
 }
 void sonArbolesSemejantes(){
     if (!gestor.esVacioArbin()) {

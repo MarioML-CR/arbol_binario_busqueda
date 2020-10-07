@@ -602,7 +602,8 @@ bool Arbin::esCompleto() {
 /**
  * Método:              esCompletoRecursivo
  * Descripción:         Método recursivo que cuenta el número de nodos que tienen un solo
- * hijo.
+ * hijo. Lo que equivale a que cada elemento de un árbol completo tiene los dos subárboles
+ * o no tiene ninguno.
  * @param nodo          variable de tipo Nodo que representa al árbol que se va a analizar
  * @return              variable de tipo int que representa el número de nodos que tienen
  * un sólo hijo
@@ -620,24 +621,43 @@ int Arbin::esCompletoRecursivo(Nodo * nodo) {
     }
 }
 
-
+/**
+ * Método:              sonArbolesIguales
+ * Descripción:         Método que permite verificar si dos árboles son iguales, lo que implica
+ * que ambos son vacíos, o sus raíces son iguales, lo mismo que sus respectivos subárboles
+ * izquierdo y derecho.
+ * @param nodo          variable de tipo Nodo que representa el árbol con el que se
+ * va a comparar el árbol base.
+ * @return              variable de tipo bool que representa si son iguales (true) o no (false)
+ */
 bool Arbin::sonArbolesIguales(Nodo * nodo) {
-    string arbolAInOrden = inOrdenRecursivo(getRaiz());
-    string arbolBInOrden = inOrdenRecursivo(nodo);
-    string arbolAInPreorden = preOrdenRecursivo(getRaiz());
-    string arbolBInPreorden = preOrdenRecursivo(nodo);
-    string arbolAInPosOrden = postOrdenRecursivo(getRaiz());
-    string arbolBInPostOrden = postOrdenRecursivo(nodo);
-    int inOrden = arbolAInOrden.compare(arbolBInOrden);
-    int preOrden = arbolAInPreorden.compare(arbolBInPreorden);
-    int postOrden = arbolAInPosOrden.compare(arbolBInPostOrden);
-    if (inOrden == 0 && preOrden == 0 && postOrden == 0){
+    if (getRaiz() == nullptr && nodo == nullptr){
         return true;
     } else {
-        return false;
+        string arbolAInOrden = inOrdenRecursivo(getRaiz());
+        string arbolBInOrden = inOrdenRecursivo(nodo);
+        string arbolAInPreorden = preOrdenRecursivo(getRaiz());
+        string arbolBInPreorden = preOrdenRecursivo(nodo);
+        string arbolAInPosOrden = postOrdenRecursivo(getRaiz());
+        string arbolBInPostOrden = postOrdenRecursivo(nodo);
+        int inOrden = arbolAInOrden.compare(arbolBInOrden);
+        int preOrden = arbolAInPreorden.compare(arbolBInPreorden);
+        int postOrden = arbolAInPosOrden.compare(arbolBInPostOrden);
+        if (inOrden == 0 && preOrden == 0 && postOrden == 0){
+            return true;
+        } else {
+            return false;
+        }
     }
 }
-
+/**
+ * Método:              sonArbolesSemejantes
+ * Descripción:         Método que permite verificar si dos árboles son semejantes; es decir,
+ * que contienen los mismos elementos aunque no sean necesariamente isomorfos (o estructura)
+ * @param nodo          variable de tipo Nodo que representa el árbol con el que se
+ * va a comparar el árbol base.
+ * @return              variable de tipo bool que representa si son semejantes (true) o no (false)
+ */
 bool Arbin::sonArbolesSemejantes(Nodo * nodo) {
     string arbolAInOrden = inOrdenRecursivo(getRaiz());
     string arbolBInOrden = inOrdenRecursivo(nodo);
@@ -648,7 +668,14 @@ bool Arbin::sonArbolesSemejantes(Nodo * nodo) {
         return false;
     }
 }
-
+/**
+ * Método:              sonArbolesIsomorfos
+ * Descripción:         Método que permite verificar si dos árboles son isomorfos; es decir,
+ * que tienen la misma estructura, pero no necesariamente los mismos elementos.
+ * @param nodo          variable de tipo Nodo que representa el árbol con el que se
+ * va a comparar el árbol base.
+ * @return              variable de tipo bool que representa si son isomorfos (true) o no (false)
+ */
 bool Arbin::sonArbolesIsomorfos(Nodo * nodo) {
     int isomorfo = sonArbolesIsomorfosRecursivo(getRaiz(), nodo);
     if (isomorfo == 0){
@@ -657,13 +684,26 @@ bool Arbin::sonArbolesIsomorfos(Nodo * nodo) {
         return false;
     }
 }
-
+/**
+ * Método:              sonArbolesIsomorfosRecursivo
+ * Descripción:         Método recursivo que permite verificar si dos árboles
+ * son isomorfos; es decir, que tienen la misma estructura, pero no necesariamente
+ * los mismos elementos.
+ * @param nodoA         variable de tipo Nodo que representa el árbol A y es uno de
+ * los árboles que se compararán.
+ * @param nodoB         variable de tipo Nodo que representa el árbol B y es el
+ * segundo árbol que se compará.
+ * @return              variable de tipo int que representa el número de veces que
+ * presenta diferencia ambos árboles.
+ */
 int Arbin::sonArbolesIsomorfosRecursivo(Nodo * nodoA, Nodo * nodoB) {
     if (nodoA == nullptr || nodoB == nullptr){
         return 0;
     } else {
-        if (nodoA->getDer() != nodoB->getDer() ||
-            nodoA->getIzq() != nodoB->getIzq()) {
+        if (nodoA->getDer() != nullptr && nodoB->getDer() == nullptr ||
+                nodoA->getDer() == nullptr && nodoB->getDer() != nullptr ||
+                nodoA->getIzq() != nullptr && nodoB->getIzq() == nullptr ||
+                nodoA->getIzq() == nullptr && nodoB->getIzq() != nullptr ) {
             return 1;
         } else {
             return sonArbolesIsomorfosRecursivo(nodoA->getIzq(), nodoB->getIzq()) +
