@@ -33,7 +33,14 @@ void camino();
 void preOrden();
 void postOrden();
 void inOrden();
-void eliminarElem();
+void eliminarElemIzq();
+void eliminarElemDer();
+void esLleno();
+void esCompleto();
+void insertarEnArbolB();
+void sonArbolesIguales();
+void sonArbolesSemejantes();
+void sonArbolesIsomorfos();
 Gestor gestor;
 Validar validar;
 
@@ -53,15 +60,22 @@ void menu() {
              "04 Número menor del árbol\n" <<
              "05 Número mayor del árbol\n" <<
              "06 Verificar si valor es hoja\n" <<
-             "07 Nivel del arbol\n" <<
+             "07 Nivel del arbolA\n" <<
              "08 Altura del árbol\n" <<
              "09 Número de hojas del árbol\n" <<
              "10 Camino entre dos valores\n" <<
              "11 Imprimir árbol en PREORDEN\n" <<
              "12 Imprimir árbol en POSTORDEN\n" <<
              "13 Imprimir árbol en ORDEN\n" <<
-             "14 Eliminar elemento\n" <<
-             "18 Salir\n";
+             "14 Eliminar elemento - Izquierda\n" <<
+             "15 Eliminar elemento - Derecha\n" <<
+             "16 Está lleno?\n" <<
+             "17 Es completo?\n" <<
+             "18 Insertar en arbol B\n" <<
+             "19 Los árboles son iguales?\n" <<
+             "20 Los árboles son semejantes?\n" <<
+             "21 Los árboles son isomorfos?\n" <<
+             "22 Salir\n";
         cin >> valor;
         opcion = validar.ingresarInt(valor);
         procesarMenu(opcion, salir);
@@ -109,9 +123,30 @@ void procesarMenu(int & pOpcion, bool & salir) {
             inOrden();
             break;
         case 14:
-            eliminarElem();
+            eliminarElemIzq();
+            break;
+        case 15:
+            eliminarElemDer();
+            break;
+        case 16:
+            esLleno();
+            break;
+        case 17:
+            esCompleto();
             break;
         case 18:
+            insertarEnArbolB();
+            break;
+        case 19:
+            sonArbolesIguales();
+            break;
+        case 20:
+            sonArbolesSemejantes();
+            break;
+        case 21:
+            sonArbolesIsomorfos();
+            break;
+        case 22:
             salir = true;
             break;
         default:
@@ -140,10 +175,10 @@ void agregarAArbin() {
         if (carga) {
             cout << "El valor ingresado se cargó correctamente\n";
         } else {
-            cout << "Se produjo un error en la carga...\n";
+            cout << "No se cargó el valor ingresado; ya existe en el árbol\n";
         }
     }
-    cout << "Los valores ingresados en el arbol binario se cargaron satisfactoriamente\n";
+    cout << "Finalizado el procesamiento de datos ...\n";
 }
 void esVacioArbin(){
     if (gestor.esVacioArbin()) {
@@ -240,11 +275,70 @@ void inOrden(){
         cout << "Aún no se ha ingresado datos al árbol\n";
     }
 }
-void eliminarElem(){
+void eliminarElemIzq(){
     if (!gestor.esVacioArbin()) {
         string msg = "Ingrese el número que desea eliminar del árbol\n";
         int num = ingresarNum(msg);
-        cout << gestor.eliminarElem(num) << endl;
+        cout << gestor.eliminarElemIzq(num) << endl;
+    } else {
+        cout << "Aún no se ha ingresado datos al árbol\n";
+    }
+}
+void eliminarElemDer(){
+    if (!gestor.esVacioArbin()) {
+        string msg = "Ingrese el número que desea eliminar del árbol\n";
+        int num = ingresarNum(msg);
+        cout << gestor.eliminarElemDer(num) << endl;
+    } else {
+        cout << "Aún no se ha ingresado datos al árbol\n";
+    }
+}
+void esLleno(){
+    if (!gestor.esVacioArbin()) {
+        cout << gestor.esLleno() << endl;
+    } else {
+        cout << "Aún no se ha ingresado datos al árbol\n";
+    }
+}
+void esCompleto(){
+    if (!gestor.esVacioArbin()) {
+        cout << gestor.esCompleto() << endl;
+    } else {
+        cout << "Aún no se ha ingresado datos al árbol\n";
+    }
+}
+
+void insertarEnArbolB(){
+    string msg = "Ingrese la cantidad de números que desea cargar al árbol\n";
+    int ciclos = ingresarNum(msg);
+    for (int i = 0; i < ciclos; ++i) {
+        msg = "ingrese el valor " + to_string(i + 1);
+        bool carga = gestor.insertarElemB(ingresarNum(msg));
+        if (carga) {
+            cout << "El valor ingresado se cargó correctamente\n";
+        } else {
+            cout << "No se cargó el valor ingresado; ya existe en el árbol\n";
+        }
+    }
+    cout << "Finalizado el procesamiento de datos ...\n";
+}
+void sonArbolesIguales(){
+    if (!gestor.esVacioArbin()) {
+        cout << gestor.sonArbolesIguales() << endl;
+    } else {
+        cout << "Aún no se ha ingresado datos al árbol\n";
+    }
+}
+void sonArbolesSemejantes(){
+    if (!gestor.esVacioArbin()) {
+        cout << gestor.sonArbolesSemejantes() << endl;
+    } else {
+        cout << "Aún no se ha ingresado datos al árbol\n";
+    }
+}
+void sonArbolesIsomorfos(){
+    if (!gestor.esVacioArbin()) {
+        cout << gestor.sonArbolesIsomorfos() << endl;
     } else {
         cout << "Aún no se ha ingresado datos al árbol\n";
     }

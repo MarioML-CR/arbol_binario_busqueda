@@ -12,9 +12,13 @@ class Gestor {
 public:
     Gestor();
 
-    Arbin *getArbol() const;
+    Arbin *getArbolA() const;
 
-    void setArbol(Arbin *arbol);
+    void setArbolA(Arbin *arbol);
+
+    Arbin *getArbolB() const;
+
+    void setArbolB(Arbin *arbolB);
 
     bool insertarElem(int); //Inserta un entero en el árbol ordenado.
 
@@ -42,10 +46,26 @@ public:
 
     string postOrden(); // Imprime el Arbin de forma IDR (izquierda - derecha - raíz)
 
-    string eliminarElem(int); //Elimina un elemento del Arbin.
+    string eliminarElemIzq(int); //Elimina un elemento del Arbin por la izq
+
+    string eliminarElemDer(int); //Elimina un elemento del Arbin por la der
+
+    string esLleno(); //Retorna si un Arbin es completo o no
+
+    string esCompleto(); // Retorna si un Arbin es completo o no
+
+    bool insertarElemB(int); //Inserta un entero en el árbol ordenado.
+
+    string sonArbolesIguales(); // Verifica si dos árboles son iguales
+
+    string sonArbolesSemejantes(); // Verifica si dos árboles son semejantes
+
+    string sonArbolesIsomorfos(); // Verifica si dos árboles son isomorfos
 
 private:
-    Arbin *arbol;
+    Arbin *arbolA;
+
+    Arbin *arbolB;
 };
 
 

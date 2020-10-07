@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "Arbin.h"
+
 /**
  * Método:          Arbin
  * Descripción:     constructor de la clase Arbin (Árbol binario o de búsquda)
@@ -54,8 +55,28 @@ bool Arbin::esVacioArbin() {
     }
 }
 /**
+ * Método:          existeElemento
+ * Descripción:     Método que verifica si un elemento ya existe en el árbol
+ * @param pValor    variable de tipo int que representa el elemento que se debe
+ * buscar en el árbol.
+ * @return          variable de tipo bool, si existe retorna true, false caso contrario
+ */
+bool Arbin::existeElemento(int pValor) {
+    if (getPeso()==0){
+        return false;
+    } else {
+        Nodo * aux = buscarNodo(getRaiz(), pValor);
+        if (aux == nullptr){
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+}
+/**
  * Método:              insertarElemRecursivo
- * Descripción:         Método que permite hacer la inserción de un arbol binario (ordenado)
+ * Descripción:         Método que permite hacer la inserción de un arbolA binario (ordenado)
  * @param nodo      representa el nodo raiz,
  * @param nodoPadre      representa el nodo hijo
  * @param pValor        representa el valor a insertar, variable de tipo int
@@ -86,7 +107,13 @@ bool Arbin::insertarElemRecursivo(Nodo *nodo, Nodo *nodoPadre, int pValor, int t
  * @return              varible de tipo bool (true) indicando que se cargó correctamente.
  */
 bool Arbin::insertarElem(int pValor) {
-    return insertarElemRecursivo(getRaiz(), new Nodo(), pValor ,0);
+    bool existe = existeElemento(pValor);
+    if (!existe){
+        return insertarElemRecursivo(getRaiz(), new Nodo(), pValor ,0);
+    } else {
+        return false;
+    }
+
 }
 /**
  * Método:              buscarMaximo
@@ -208,7 +235,7 @@ Nodo *Arbin::buscarNodoPadre(int pValor) {
 /**
  * Método:              esHoja
  * Descripción:         Método que permite establecer si al valor ingresado
- * es hoja o no, si no existe en el arbol o si no hay datos en el árbol.
+ * es hoja o no, si no existe en el arbolA o si no hay datos en el árbol.
  * @param pValor        valor que representa el valor a buscar en el árbol.
  * @return              variable de tipo string con el resultado de la búsqueda.
  */
@@ -434,9 +461,12 @@ string Arbin::postOrdenRecursivo(Nodo *nodo) {
  * Método:              eliminarElem
  * Descripción:         Método que permite eliminar un elemento del árbol
  * @param pValor        variable de tipo int que representa el valor a eliminar
+ * @param tipo          variable de tipo int que representa la forma de eliminar en caso
+ * que el nodo a eliminar tenga dos hijos; si es 0 elimina por la izquierda, y si es 1
+ * elimina por la derecha.
  * @return              variable de tipo bool (true si lo eliminó, falso caso contrario)
  */
-bool Arbin::eliminarElem(int pValor) {
+bool Arbin::eliminarElem(int pValor, int tipo) {
     Nodo * b = buscarNodo(getRaiz(), pValor);; // nodo del elemento a eliminar
     if (b == nullptr){
         return false;
@@ -444,20 +474,12 @@ bool Arbin::eliminarElem(int pValor) {
         Nodo * a = buscarNodoPadre(pValor); // nodo padre del elemento a eliminar
         Nodo * c = b->getIzq(); // nodo izquierdo del elemento a eliminar
         Nodo * d = b->getDer(); // nodo derecho del elemento a eliminar
-//        Nodo * f; // nodo máximo por la izquierda
-//        Nodo * e; // nodo padre del nodo máximo
-//        Nodo * g; // nodo izquierdo del nodo máximo
-//        if (c == nullptr){
-//            f = d;
-//            e = nullptr;
-//            g = nullptr;
-//        } else {
-//            f = nodoMaximo(c);
-//            e = buscarNodoPadre(f->getNum());
-//            g = f->getIzq(); // nodo izquierdo del nodo máximo
-//        }
         if (b->getIzq() != nullptr & b->getDer() != nullptr){ // tiene dos hojas
-            eliminarNodoPorIzq(a,b,c,d);
+            if (tipo == 0){ // elimina por la izquierda
+                eliminarNodoPorIzq(a,b,c,d);
+            } else { // elimina por la derecha
+                eliminarNodoPorDer(a,b,c,d);
+            }
         } else if (b->getIzq() != nullptr & b->getDer() == nullptr ||
                    b->getIzq() == nullptr & b->getDer() != nullptr){ // tiene una hoja, izquierda o derecha caso 4 y 5
             if (b == getRaiz()){
@@ -485,26 +507,49 @@ bool Arbin::eliminarElem(int pValor) {
         return true;
     }
 }
+/**
+ * Método:              eliminarNodoPorDer
+ * Descripción:         Método que permite eliminar un nodo que tiene dos hijos y la
+ * eliminación es por la derecha.
+ * @param a             variable de tipo Nodo que representa el nodo padre del elemento a eliminar
+ * @param b             variable de tipo Nodo que representa el nodo a eliminar
+ * @param c             variable de tipo Nodo que representa el nodo izquierdo del elemento a eliminar
+ * @param d             variable de tipo Nodo que representa el nodo derecho del elemento a eliminar
+ */
 void Arbin::eliminarNodoPorDer(Nodo * a, Nodo * b, Nodo * c, Nodo * d) {
-    Nodo * f; // nodo máximo por la izquierda
-    Nodo * e; // nodo padre del nodo máximo
-    Nodo * g; // nodo izquierdo del nodo máximo
-
-}
-
-void Arbin::eliminarNodoPorIzq(Nodo * a, Nodo * b, Nodo * c, Nodo * d) {
-    Nodo * f; // nodo máximo por la izquierda
-    Nodo * e; // nodo padre del nodo máximo
-    Nodo * g; // nodo izquierdo del nodo máximo
-    if (c == nullptr){
-        f = d;
-        e = nullptr;
-        g = nullptr;
+    Nodo * f = nodoMinimo(d); // nodo mínimo por la derecha
+    Nodo * e = buscarNodoPadre(f->getNum()); // nodo padre del nodo mínimo
+    Nodo * g = f->getDer(); // nodo derecho del nodo mínimo
+    if (b == getRaiz()){
+        setRaiz(f);
     } else {
-        f = nodoMaximo(c);
-        e = buscarNodoPadre(f->getNum());
-        g = f->getIzq(); // nodo izquierdo del nodo máximo
+        if (a->getIzq() == b){ // el nodo a eliminar corresponde a la rama izquierda del padre a eliminar
+            a->setIzq(f);
+        } else { // el nodo a eliminar corresponde a la rama derecha del padre a eliminar
+            a->setDer(f);
+        }
     }
+    f->setIzq(c);
+    if (b == e && d == f){ // caso 1
+        f->setDer(g);
+    } else { // caso 2
+        f->setDer(d);
+        e->setIzq(g);
+    }
+}
+/**
+ * Método:              eliminarNodoPorIzq
+ * Descripción:         Método que permite eliminar un nodo que tiene dos hijos y la
+ * eliminación es por la izquierda.
+ * @param a             variable de tipo Nodo que representa el nodo padre del elemento a eliminar
+ * @param b             variable de tipo Nodo que representa el nodo a eliminar
+ * @param c             variable de tipo Nodo que representa el nodo izquierdo del elemento a eliminar
+ * @param d             variable de tipo Nodo que representa el nodo derecho del elemento a eliminar
+ */
+void Arbin::eliminarNodoPorIzq(Nodo * a, Nodo * b, Nodo * c, Nodo * d) {
+    Nodo * f = nodoMaximo(c); // nodo máximo por la izquierda
+    Nodo * e = buscarNodoPadre(f->getNum()); // nodo padre del nodo máximo
+    Nodo * g = f->getIzq(); // nodo izquierdo del nodo máximo
     if (b == getRaiz()){
         setRaiz(f);
     } else {
@@ -517,15 +562,115 @@ void Arbin::eliminarNodoPorIzq(Nodo * a, Nodo * b, Nodo * c, Nodo * d) {
     f->setDer(d);
     if (b == e && c == f){ // caso 1
         f->setIzq(g);
-    } else if (c == e && g == nullptr){ // caso 2
-        f->setIzq(c);
-        e->setDer(g);
-    } else { // caso 3
+    }
+    else { // caso 2 y caso 3
         f->setIzq(c);
         e->setDer(g);
     }
 }
+/**
+ * Método:              esLleno
+ * Descripción:         Método que permite verificar si un árbol está lleno; es decir, que
+ * todos los nodos tienen dos hijos o ninguno, y sus hojas están al mismo nivel. El árbol
+ * lleno necesariamente debe estar completo.
+ * @return              variable de tipo bool (true si está lleno, falso caso contrario)
+ */
+bool Arbin::esLleno() {
+    int hojas = numHojasRecursivo(getRaiz());
+    int nivel = nivelRecursivo(getRaiz());
+    if (pow(2, nivel) == hojas){
+        return true;
+    } else {
+        return false;
+    }
+}
+/**
+ * Método:              esCompleto
+ * Descripción:         Método que permite verificar si un árbol está completo; lo que
+ * se alcanza si y solo si no existe un nodo con solo un hijo. Un árbol completo puede
+ * estar lleno, pero un árbol compleno no implica que debe estar lleno.
+ * @return              variable de tipo bool (true si es completo, falso caso contrario)
+ */
+bool Arbin::esCompleto() {
+    int completo = esCompletoRecursivo(getRaiz());
+    if (completo > 0){
+        return false;
+    } else {
+        return true;
+    }
+}
+/**
+ * Método:              esCompletoRecursivo
+ * Descripción:         Método recursivo que cuenta el número de nodos que tienen un solo
+ * hijo.
+ * @param nodo          variable de tipo Nodo que representa al árbol que se va a analizar
+ * @return              variable de tipo int que representa el número de nodos que tienen
+ * un sólo hijo
+ */
+int Arbin::esCompletoRecursivo(Nodo * nodo) {
+    if (nodo == nullptr){
+        return 0;
+    } else {
+        if (nodo->getDer() != nullptr && nodo->getIzq() == nullptr ||
+                nodo->getDer() == nullptr && nodo->getIzq() != nullptr){
+            return 1;
+        } else {
+            return esCompletoRecursivo(nodo->getIzq()) + esCompletoRecursivo(nodo->getDer());
+        }
+    }
+}
 
+
+bool Arbin::sonArbolesIguales(Nodo * nodo) {
+    string arbolAInOrden = inOrdenRecursivo(getRaiz());
+    string arbolBInOrden = inOrdenRecursivo(nodo);
+    string arbolAInPreorden = preOrdenRecursivo(getRaiz());
+    string arbolBInPreorden = preOrdenRecursivo(nodo);
+    string arbolAInPosOrden = postOrdenRecursivo(getRaiz());
+    string arbolBInPostOrden = postOrdenRecursivo(nodo);
+    int inOrden = arbolAInOrden.compare(arbolBInOrden);
+    int preOrden = arbolAInPreorden.compare(arbolBInPreorden);
+    int postOrden = arbolAInPosOrden.compare(arbolBInPostOrden);
+    if (inOrden == 0 && preOrden == 0 && postOrden == 0){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool Arbin::sonArbolesSemejantes(Nodo * nodo) {
+    string arbolAInOrden = inOrdenRecursivo(getRaiz());
+    string arbolBInOrden = inOrdenRecursivo(nodo);
+    int inOrden = arbolAInOrden.compare(arbolBInOrden);
+    if (inOrden == 0){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool Arbin::sonArbolesIsomorfos(Nodo * nodo) {
+    int isomorfo = sonArbolesIsomorfosRecursivo(getRaiz(), nodo);
+    if (isomorfo == 0){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+int Arbin::sonArbolesIsomorfosRecursivo(Nodo * nodoA, Nodo * nodoB) {
+    if (nodoA == nullptr || nodoB == nullptr){
+        return 0;
+    } else {
+        if (nodoA->getDer() != nodoB->getDer() ||
+            nodoA->getIzq() != nodoB->getIzq()) {
+            return 1;
+        } else {
+            return sonArbolesIsomorfosRecursivo(nodoA->getIzq(), nodoB->getIzq()) +
+                   sonArbolesIsomorfosRecursivo(nodoA->getDer(), nodoB->getDer());
+        }
+    }
+}
 
 
 

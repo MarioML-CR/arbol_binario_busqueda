@@ -27,6 +27,8 @@ public:
 
     bool esVacioArbin(); //Retorna si un Arbin es vacío o no
 
+    bool existeElemento(int); // Retorna verdadero si el elemento existe, y falso caso contrario.
+
     bool insertarElem(int); //Inserta un entero en el árbol ordenado.
 
     int buscarMaximo(); //Busca el elemento de mayor valor
@@ -49,14 +51,17 @@ public:
 
     string postOrden(); // Imprime el Arbin de forma IDR (izquierda - derecha - raíz)
 
-    bool eliminarElem(int); //Elimina un elemento del Arbin.
+    bool eliminarElem(int, int); //Elimina un elemento del Arbin, si tiene dos hojas toma por la izq.
 
-    // TODO: pendiente de acá en adelante.
+    bool esLleno(); // Retorna si un Arbin está lleno o no
 
-    bool esCompleto(); //Retorna si un Arbin es completo o no
+    bool esCompleto(); // Retorna si un Arbin es completo o no
 
-    bool igualesArbin(); //Dice si dos Arbin son iguales o no.
+    bool sonArbolesIguales(Nodo *); // Verifica si dos árboles son iguales
 
+    bool sonArbolesSemejantes(Nodo *); // Verifica si dos árboles son semejantes
+
+    bool sonArbolesIsomorfos(Nodo *); // Verifica si dos árboles son isomorfos
 
 private:
     Nodo *raiz;
@@ -66,11 +71,7 @@ private:
 
     Nodo *buscarNodo(Nodo*, int); // retorna el nodo del valor pasado por parámetro
 
-//    Nodo *buscarNodoa(Nodo*, int); // retorna el nodo del valor pasado por parámetro
-
     Nodo *buscarNodoPadre(int); // etorna el nodo previo del valor pasado por parámetro
-
-//    Nodo *buscarNodoPadre(Nodo *); // etorna el nodo previo del valor pasado por parámetro
 
     Nodo * nodoMaximo(Nodo*); //Busca el elemento de mayor valor
 
@@ -91,6 +92,10 @@ private:
     void  eliminarNodoPorIzq(Nodo *, Nodo *, Nodo *, Nodo *); // Elimina un nodo que tiene dos hijos por la izq
 
     void eliminarNodoPorDer(Nodo *, Nodo *, Nodo *, Nodo *); // Elimina un nodo que tiene dos hijos por la der
+
+    int esCompletoRecursivo(Nodo *); // Retorna el número de nodos que presentan sólo un hijo
+
+    int sonArbolesIsomorfosRecursivo(Nodo *, Nodo *); // Verifica si dos árboles son isomorfos
 
 };
 
